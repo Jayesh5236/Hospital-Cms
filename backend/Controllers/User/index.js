@@ -22,7 +22,7 @@ router.post(
   errorMiddleware,
   async (req, res) => {
     try {
-      const { email, phone, password, role } = req.body;
+      const { name, email, phone, password, role } = req.body;
 
       const emailFound = await User.findOne({ email });
       if (emailFound) {
