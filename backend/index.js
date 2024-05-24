@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 import morgan from "morgan";
 import patientRouter from "./Controllers/Patients/index.js";
+import userRouter from "./Controllers/User/index.js";
 import dbCOnnect from "./Database/dbConnect.js";
 
 const app = express();
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 // ROutes
+app.use("/api/user", userRouter);
 app.use("/api/patients", patientRouter);
 
 const PORT = process.env.PORT || 5001;

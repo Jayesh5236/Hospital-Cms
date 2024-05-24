@@ -31,7 +31,8 @@ const patientSchema = new mongoose.Schema(
       required: true,
     },
     medicalHistory: {
-      type: String,
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true }
