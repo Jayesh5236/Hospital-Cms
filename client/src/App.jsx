@@ -4,6 +4,8 @@ import Navbar from "./Components/Navbar/Navbar";
 import Homepage from "./Components/Homepage/Homepage";
 import AboutPage from "./Components/About/AboutPage";
 
+import HospitalFooter from "./Components/Footer/HospitalFooter";
+
 function App() {
   const [count, setCount] = useState(0);
 
@@ -14,6 +16,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
+      <HospitalFooter />
     </BrowserRouter>
   );
 }
