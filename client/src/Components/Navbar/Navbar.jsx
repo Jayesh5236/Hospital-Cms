@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Input } from "antd";
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import { Input, Button } from "antd";
+import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,24 +23,43 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex flex-1 justify-center items-center">
-            <Input placeholder="Search Here" className="mt-2 mr-3 w-48" />
+            <Input placeholder="Search Here" className="w-96 rounded-xl" />
           </div>
 
           <div className="hidden md:flex flex-1 justify-end items-center text-xl font-serif">
             <ul className="flex space-x-4">
-              <li>Home</li>
-              <li>About</li>
-              <li>Services</li>
-              <li>Contact</li>
-              <li className="bg-gradient-to-r from-rose-400 to-red-500 rounded h-7 w-16 text-center flex items-center justify-center">
-                Login
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#about">About</a>
+              </li>
+              <li>
+                <a href="#services">Services</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+              <li>
+                <Button className="bg-gradient-to-r from-rose-400 to-red-500" href="/login">
+                  <span className="rounded h-7 w-16 text-center flex items-center justify-center">
+                    Login
+                  </span>
+                </Button>
               </li>
             </ul>
           </div>
 
           <div className="md:hidden">
-            <button onClick={toggleCollapsed} className="text-black focus:outline-none">
-              {isOpen ? <CloseOutlined className="text-2xl" /> : <MenuOutlined className="text-2xl" />}
+            <button
+              onClick={toggleCollapsed}
+              className="text-black focus:outline-none"
+            >
+              {isOpen ? (
+                <CloseOutlined className="text-2xl" />
+              ) : (
+                <MenuOutlined className="text-2xl" />
+              )}
             </button>
           </div>
         </div>
@@ -48,12 +67,22 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden">
             <ul className="flex flex-col items-center text-xl font-serif space-y-2 p-4">
-              <li>Home</li>
-              <li>About</li>
-              <li>Services</li>
-              <li>Contact</li>
-              <li className="bg-gradient-to-r from-rose-400 to-red-500 rounded h-7 w-16 text-center flex items-center justify-center">
-                Login
+              <li>
+                <a href="#home">Home</a>
+              </li>
+              <li>
+                <a href="#about">About</a>
+              </li>
+              <li>
+                <a href="#services">Services</a>
+              </li>
+              <li>
+                <a href="#contact">Contact</a>
+              </li>
+              <li>
+                <Button href="/login" className="bg-gradient-to-r from-rose-400 to-red-500 rounded h-7 w-16 text-center flex items-center justify-center">
+                  Login
+                </Button>
               </li>
             </ul>
           </div>
