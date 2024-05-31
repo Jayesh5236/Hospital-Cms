@@ -3,7 +3,7 @@ import { Carousel } from "antd";
 
 const CarouselHomepage = () => {
   return (
-    <div className="max-w-screen-lg mx-auto mt-1 mb-1 w-full">
+    <div className="max-w-screen-lg mx-auto w-full">
       <Carousel autoplay>
         <div className="h-60 sm:h-72 md:h-96 lg:h-120">
           <img

@@ -5,15 +5,17 @@ import Homepage from "./Components/Homepage/Homepage";
 import AboutPage from "./Components/About/AboutPage";
 
 import HospitalFooter from "./Components/Footer/HospitalFooter";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
       <HospitalFooter />
