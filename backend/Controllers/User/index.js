@@ -48,7 +48,7 @@ router.post(
       await user.save();
 
       // Send success response after user is saved
-      res.status(200).json({ success: "User Registered Successfully" });
+      res.status(200).json({ success: "User Registered Successfully", user });
     } catch (error) {
       console.error(error);
       // Send error response in case of any error
