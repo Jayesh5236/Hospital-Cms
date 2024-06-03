@@ -3,7 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import colors from "colors";
 import morgan from "morgan";
-import patientRouter from "./Controllers/Patients/index.js";
+import patientRouter from "./Controllers/Admin/patient.js";
+import doctorRouter from "./Controllers/Admin/doctor.js";
 import userRouter from "./Controllers/User/index.js";
 import dbCOnnect from "./Database/dbConnect.js";
 
@@ -26,7 +27,8 @@ app.get("/", (req, res) => {
 
 // ROutes
 app.use("/api/user", userRouter);
-app.use("/api/patients", patientRouter);
+app.use("/api/admin/patients", patientRouter);
+app.use("/api/admin/doctors",doctorRouter);
 
 const PORT = process.env.PORT || 5001;
 

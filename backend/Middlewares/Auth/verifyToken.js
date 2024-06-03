@@ -10,7 +10,7 @@ function authMiddleware(req, res, next) {
 
     // Verify The Token
 
-    const payload = jwt.verify(token, privateKey);
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
 
     // set the payload in req object
     req.payload = payload;

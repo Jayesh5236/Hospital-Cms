@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post("/doctor/add", authMiddleware, async (req, res) => {
   try {
-    const { name, specialization, email, phone, password } = req.body;
+    const { name, specialization, email, phone } = req.body;
 
-    if (!name && !specialization && !email && !phone && !password) {
+    if (!name && !specialization && !email && !phone) {
       return res.status(400).send({
         success: false,
         message: "All The Details Are Required",
@@ -62,9 +62,9 @@ router.get("/doctor/all", async (req, res) => {
 
 // Updating Doctors
 
-router.post("/doctor/update/:id", async (req, res) => {
+router.post("/doctor/update/:id", authMiddleware, async (req, res) => {
   try {
-    const { name, specialization, email, phone, password } = req.body;
+    const { name, specialization, email, phone} = req.body;
 
     const { id } = req.params;
 
@@ -75,7 +75,6 @@ router.post("/doctor/update/:id", async (req, res) => {
         specialization: req.body.specialization,
         email: req.body.email,
         phone: req.body.phone,
-        password: req.body.password,
       },
       { new: true }
     );
@@ -96,7 +95,7 @@ router.post("/doctor/update/:id", async (req, res) => {
 
 // Delete Doctor By ID
 
-router.delete("/doctor/delete/:id", async (req, res) => {
+router.delete("/doctor/delete/:id",authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -104,7 +103,7 @@ router.delete("/doctor/delete/:id", async (req, res) => {
 
     res.status(201).send({
       success: true,
-      message: "Patient Deleted SucessFully",
+      message: "Doctor Deleted SucessFully",
     });
   } catch (error) {
     console.log(error);

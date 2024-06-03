@@ -83,7 +83,7 @@ router.get("/patient/all", async (req, res) => {
 });
 
 // Updating A PAtients
-router.post("/patient/update/:id", async (req, res) => {
+router.post("/patient/update/:id",authMiddleware, async (req, res) => {
   try {
     const {
       name,
@@ -129,7 +129,7 @@ router.post("/patient/update/:id", async (req, res) => {
 
 // Delete Patient By Id
 
-router.delete("/patient/delete/:id", async (req, res) => {
+router.delete("/patient/delete/:id",authMiddleware, async (req, res) => {
   try {
     const { id } = req.params;
 
