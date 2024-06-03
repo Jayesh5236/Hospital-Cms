@@ -1,29 +1,40 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../Context/auth";
 
 const Login = () => {
   const [userData, setUserData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/api/user/login', userData);
+      const res = await axios.post("api/user/login", userData);
       if (res && res.data.success) {
-        toast.success('Login Successful');
-        navigate('/');
+        toast.success("Login Successful");
+        setAuth({
+          user: res.data.user,
+          token: res.data.token,
+        });
+        localStorage.setItem("auth-token", JSON.stringify({
+          user: res.data.user,
+          token: res.data.token,
+        }));
+        navigate(location.state?.from || "/");
       } else {
-        toast.error('Failed to Login');
+        toast.error("Failed to Login");
       }
     } catch (error) {
       console.error(error);
-      toast.error('Error in Logging In');
+      toast.error("Error in Logging In");
     }
   };
 
@@ -34,7 +45,7 @@ const Login = () => {
           <h5 className="text-xl font-medium text-gray-900 dark:text-white">
             Login to our platform
           </h5>
-          
+
           <div>
             <label
               htmlFor="email"
@@ -58,7 +69,7 @@ const Login = () => {
               }}
             />
           </div>
-        
+
           <div>
             <label
               htmlFor="password"
@@ -82,7 +93,7 @@ const Login = () => {
               }}
             />
           </div>
-          
+
           <button
             type="submit"
             className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -90,7 +101,7 @@ const Login = () => {
             Login to your account
           </button>
           <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?{' '}
+            Not registered?{" "}
             <a
               href="/register"
               className="text-blue-700 hover:underline dark:text-blue-500"
