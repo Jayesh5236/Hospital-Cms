@@ -15,6 +15,10 @@ const doctorSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
     phone: {
       type: String,
       required: true,
@@ -24,5 +28,4 @@ const doctorSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
-export default mongoose.model("Doctor",doctorSchema,"Doctor")
+export default mongoose.model("Doctor", doctorSchema, "Doctor");
