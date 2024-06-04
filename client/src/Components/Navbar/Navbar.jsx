@@ -1,17 +1,41 @@
 import React, { useState } from "react";
-import { Input, Button } from "antd";
+import { Input, Button, Dropdown, Menu } from "antd";
 import { MenuOutlined, CloseOutlined } from "@ant-design/icons";
+import { useAuth } from "../../Context/auth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { auth, setAuth } = useAuth();
+
+  const handleLogout = () => {
+    setAuth({
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth-token");
+
+    toast.success("Logout Successful");
+  };
 
   const toggleCollapsed = () => {
     setIsOpen(!isOpen);
   };
 
+  const menu = (
+    <Menu>
+      <Menu.Item key="dashboard">
+        <a href="/dashboard">Dashboard</a>
+      </Menu.Item>
+      <Menu.Item key="logout" onClick={handleLogout}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div>
-      <nav className="bg-gradient-to-r from-teal-400 to-yellow-200">
+      <nav className="bg-gradient-to-r from-slate-900 to-slate-700">
         <div className="container mx-auto flex justify-between items-center p-4">
           <div className="flex-shrink-0">
             {/* Logo */}
@@ -29,24 +53,43 @@ const Navbar = () => {
           <div className="hidden md:flex flex-1 justify-end items-center text-xl font-serif">
             <ul className="flex space-x-4">
               <li>
-                <a href="#home">Home</a>
+                <a href="/">Home</a>
               </li>
               <li>
-                <a href="#about">About</a>
+                <a href="/about">About</a>
               </li>
               <li>
-                <a href="#services">Services</a>
+                <a href="/services">Services</a>
               </li>
               <li>
-                <a href="#contact">Contact</a>
+                <a href="/contact">Contact</a>
               </li>
-              <li>
-                <Button className="bg-gradient-to-r from-rose-400 to-red-500" href="/login">
-                  <span className="rounded h-7 w-16 text-center flex items-center justify-center">
-                    Login
-                  </span>
-                </Button>
-              </li>
+
+              {!auth?.user ? (
+                <li>
+                  <Button
+                    className="bg-gradient-to-r from-rose-400 to-red-500"
+                    href="/login"
+                  >
+                    <span className="rounded h-7 w-16 text-center flex items-center justify-center">
+                      Login
+                    </span>
+                  </Button>
+                </li>
+              ) : (
+                <li>
+                  <Dropdown overlay={menu} placement="bottomRight" arrow>
+                    <a
+                      className="ant-dropdown-link"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <Button className="bg-gradient-to-r from-blue-400 to-red-500 font-bold text-lg text-center">
+                        {auth?.user?.name}
+                      </Button>
+                    </a>
+                  </Dropdown>
+                </li>
+              )}
             </ul>
           </div>
 
@@ -68,22 +111,40 @@ const Navbar = () => {
           <div className="md:hidden">
             <ul className="flex flex-col items-center text-xl font-serif space-y-2 p-4">
               <li>
-                <a href="#home">Home</a>
+                <a href="/home">Home</a>
               </li>
               <li>
-                <a href="#about">About</a>
+                <a href="/about">About</a>
               </li>
               <li>
-                <a href="#services">Services</a>
+                <a href="/services">Services</a>
               </li>
               <li>
-                <a href="#contact">Contact</a>
+                <a href="/contact">Contact</a>
               </li>
-              <li>
-                <Button href="/login" className="bg-gradient-to-r from-rose-400 to-red-500 rounded h-7 w-16 text-center flex items-center justify-center">
-                  Login
-                </Button>
-              </li>
+              {!auth?.user ? (
+                <li>
+                  <Button
+                    href="/login"
+                    className="bg-gradient-to-r from-rose-400 to-red-500 rounded h-7 w-16 text-center flex items-center justify-center"
+                  >
+                    Login
+                  </Button>
+                </li>
+              ) : (
+                <li>
+                  <Dropdown overlay={menu} placement="bottomRight" arrow>
+                    <a
+                      className="ant-dropdown-link"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <Button className="bg-gradient-to-r from-blue-400 to-red-500 font-bold text-lg text-center">
+                        {auth?.user?.name}
+                      </Button>
+                    </a>
+                  </Dropdown>
+                </li>
+              )}
             </ul>
           </div>
         )}

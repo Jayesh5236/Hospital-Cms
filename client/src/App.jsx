@@ -7,6 +7,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import HospitalFooter from "./Components/Footer/HospitalFooter";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
+import Services from "./Components/Services/Services";
+import Contact from "./Components/Contact/Contact";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <HospitalFooter />
     </BrowserRouter>

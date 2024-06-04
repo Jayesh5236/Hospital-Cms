@@ -10,24 +10,27 @@ const Login = () => {
     password: "",
   });
 
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("api/user/login", userData);
+      const res = await axios.post("/api/user/login", userData);
       if (res && res.data.success) {
         toast.success("Login Successful");
         setAuth({
           user: res.data.user,
           token: res.data.token,
         });
-        localStorage.setItem("auth-token", JSON.stringify({
-          user: res.data.user,
-          token: res.data.token,
-        }));
+        localStorage.setItem(
+          "auth-token",
+          JSON.stringify({
+            user: res.data.user,
+            token: res.data.token,
+          })
+        );
         navigate(location.state?.from || "/");
       } else {
         toast.error("Failed to Login");

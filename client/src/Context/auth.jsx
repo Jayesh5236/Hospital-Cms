@@ -9,7 +9,18 @@ const AuthProvider = ({ children }) => {
     token: "",
   });
 
-  axios.defaults.headers.common["Authorization"] = auth?.token;
+  // Set up axios interceptor to update authorization header
+  useEffect(() => {
+    const interceptor = axios.interceptors.request.use((config) => {
+      config.headers.Authorization = auth.token ? `Bearer ${auth.token}` : "";
+      return config;
+    });
+
+    // Clean up interceptor on unmount
+    return () => {
+      axios.interceptors.request.eject(interceptor);
+    };
+  }, [auth.token]);
 
   useEffect(() => {
     const data = localStorage.getItem("auth-token");
@@ -25,7 +36,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={[auth, setAuth]}>
+    <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
     </AuthContext.Provider>
   );

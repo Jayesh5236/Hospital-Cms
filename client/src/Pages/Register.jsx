@@ -9,7 +9,7 @@ const Register = () => {
     email: "",
     password: "",
     phone: "",
-    role: "Patient",
+    role: "Patient" // Default role
   });
 
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Register = () => {
       const res = await axios.post("api/user/register", userData);
 
       if (res && res.data.success) {
-        toast.success("Registration Sucessfull");
+        toast.success("Registration Successful");
         navigate("/login");
       } else {
         toast.error("Failed To Register User");
@@ -31,6 +31,7 @@ const Register = () => {
       toast.error("Error In Registering User");
     }
   };
+
   return (
     <div className="flex justify-center bg-gradient-to-r from-slate-300 to-slate-500">
       <div className="w-full max-w-sm p-4 mt-2 mb-2 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
@@ -150,10 +151,9 @@ const Register = () => {
                 });
               }}
             >
-              <option value="user">User</option>
-              <option value="admin">Admin</option>
-              <option value="doctor">Doctor</option>
-              <option value="nurse">Nurse</option>
+              <option value="Admin">Admin</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Nurse">Nurse</option>
               <option value="Receptionist">Receptionist</option>
               <option value="Patient">Patient</option>
             </select>
