@@ -6,6 +6,8 @@ import {
   userRegistrationValidation,
 } from "../../Middlewares/validations/index.js";
 import User from "../../Models/User/index.js";
+import authMiddleware from "../../Middlewares/Auth/verifyToken.js";
+
 
 const router = express.Router();
 
@@ -61,7 +63,6 @@ router.post(
   }
 );
 
-
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -92,9 +93,7 @@ router.post("/login", async (req, res) => {
   }
 
   // TOken
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "7d",
-  });
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
 
   res.status(200).send({
     success: true,
@@ -102,6 +101,10 @@ router.post("/login", async (req, res) => {
     user,
     token,
   });
+});
+
+router.get("/admin-auth",  (req, res) => {
+  res.status(200).send({ ok: true });
 });
 
 export default router;

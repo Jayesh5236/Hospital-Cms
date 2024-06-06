@@ -9,6 +9,9 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Services from "./Components/Services/Services";
 import Contact from "./Components/Contact/Contact";
+import AdminRoutes from "./Routes/AdminRoute";
+import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
+import PatientManagement from "./Pages/Admin/AdminFunction/PatientManagement";
 
 function App() {
   return (
@@ -22,6 +25,12 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
+
+
+      <Route path="/dashboard" element={<AdminRoutes />}>
+      <Route path="admin" element={<AdminDashboard />} />
+      <Route path="admin/create-patient" element={<PatientManagement />} />
+      </Route>
       </Routes>
       <HospitalFooter />
     </BrowserRouter>
